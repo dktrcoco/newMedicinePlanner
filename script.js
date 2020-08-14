@@ -1,7 +1,47 @@
+//DOM elements
+
+//tying in id for input field
+var medInputEl = document.getElementById("medInput");
+
 $("#currentDay").text(moment().format("dddd MMMM Do"));
 
 var meds = JSON.parse(localStorage.getItem("meds")) || [];
 var medInput = $("#medInput").val(); //defines the input text as medInput value
+
+//script to allow enter key also function as clicking submit button
+medInputEl.addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("submitMeds").click();
+  }
+});
+
+//event listener that will activate when page loads
+window.addEventListener("load", function () {
+
+  disclaimer();
+
+  //event listener that waits for checkbox to be clicked
+  agreeWithDisclaimer.addEventListener("click", function () {
+
+    //if checkbox is checked, change visibility of submit button to visible
+    if (agreeWithDisclaimer.checked) {
+      submitMeds.style.visibility = "visible";
+      medInputEl.style.visibility = "visible";
+    }
+
+    //otherwise, visibility remains hidden
+    else {
+      submitMeds.style.visibility = "hidden";
+      medInputEl.style.visibility = "hidden";
+    }
+  }, false)
+})
+
+//confirm for user to see displayed disclaimer
+function disclaimer() {
+  confirm("Do not rely on this application to make decisions regarding medical care. Always speak to your health provider about the risks and benefits of FDA-regulated products.")
+}
 
 function saveMeds() {
   var medInput = $("#medInput").val(); //defines the input text as var value
@@ -24,11 +64,9 @@ function renderData() {
   if (!drug) {
     return;
   }
-  // This is our API key
+  
+  // This is our API key for openFDA
   var APIKey = "9T91KX0fND6FQdNSBejeTZYWGSOMmilhOIt9NBfz";
-
-  //hard code a drug for proof of concept
-  //var drug = "Nicotine"; //Vicodin, Nicotine, Viagra, Xanax,
 
   //NOTE: This API is from the US FDA. This is from the same source as the second API used below.
   //This API contains distinctly different and unique data than the below API.
@@ -48,9 +86,6 @@ function renderData() {
     //pulls the usage of the drug in question and populates the html
     $(".usage").text("Usage: " + response.results[0].indications_and_usage[0]);
 
-    console.log(response.results[0].warnings[0]);
-    console.log(response.results[0].indications_and_usage[0]);
-    console.log(response.results[0]);
     $(".med-display").show()
     //^^line above has to be underneath console.log section to run optimally.
     //maybe i can correlate the label to the adverse events api
@@ -82,14 +117,12 @@ function renderData() {
       i++
     ) {
       $(reactionsList).append(
-        // "When using this medication, some patients have experienced the following side effects: " +
+
         $("<li>").text(
           secondResponse.results[0].patient.reaction[i].reactionmeddrapt
         )
       );
     }
-
-    console.log(secondResponse.results[0].patient.reaction[0].reactionmeddrapt);
 
     $(".reactions").append(reactionsList);
     //maybe i can correlate the label to the adverse events api
@@ -100,14 +133,4 @@ function renderData() {
 //array to be populated with the side effects pulled from the api
 var sideEffects = [];
 
-// function renderSideEffects() {
-
-//   //trying to create a loop to display all of the listed side effects in the objects
-//   //the way I have it above populates it with the first, then overwrites that one with the proceeding side effect
-//   var effects = sideEffects[i];
-
-//   var li = document.createElement("li");
-//   li.textContent =
-
-// }
 $("#submitMeds").on("click", renderData);

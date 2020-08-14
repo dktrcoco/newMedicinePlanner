@@ -31,7 +31,12 @@ body {
    border-radius: 10px;
    /* margin-left: 35%; */
    font-size: 20px;
+   visibility: hidden;
 }
+
+/* #medInput {
+  visibility: hidden
+} */
  
 .button {
    width: 255px;
@@ -40,6 +45,7 @@ body {
    /* margin-left: 35%; */
    font-size: 20px;
    transition-duration: 0.4s;
+   visibility: hidden;
 }
 
 .button:hover {
