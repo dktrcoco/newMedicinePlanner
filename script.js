@@ -5,12 +5,16 @@ var medInput = $("#medInput").val(); //defines the input text as medInput value
 
 function saveMeds() {
   var medInput = $("#medInput").val(); //defines the input text as var value
-  var key = $("#medInput").attr("id"); //defines the id as var key
-  if (meds.indexOf(value) === -1) {
-    meds.push(value);
+  // var key = $("#medInput").attr("id"); //defines the id as var key
+  if (meds.indexOf(meds) === -1) {
+    meds.push(meds);
     localStorage.setItem("meds", JSON.stringify(meds));
   }
-  // renderButtons(meds);
+  // $(".medDisplay").empty();
+  // var medName = $("<h3>").addClass("card-title").text(drug);
+  // medName.append(medName);
+  // return;
+  renderButtons(meds);
 }
 
 //month count down
@@ -24,6 +28,7 @@ function renderData() {
   if (!drug) {
     return;
   }
+
   // This is our API key
   var APIKey = "9T91KX0fND6FQdNSBejeTZYWGSOMmilhOIt9NBfz";
 
@@ -51,7 +56,7 @@ function renderData() {
     console.log(response.results[0].warnings[0]);
     console.log(response.results[0].indications_and_usage[0]);
     console.log(response.results[0]);
-    $(".med-display").show()
+    $(".med-display").show();
     //^^line above has to be underneath console.log section to run optimally.
     //maybe i can correlate the label to the adverse events api
     //by using the ndc number
@@ -71,9 +76,9 @@ function renderData() {
     //pulls the side effects reported on use of the drug in question
     $(".reactions").text(
       "When using this medication, some patients have experienced the following side effects: " +
-      secondResponse.results[0].patient.reaction[0].reactionmeddrapt
+        secondResponse.results[0].patient.reaction[0].reactionmeddrapt
     );
-    var reactionsList = $("<ul>")
+    var reactionsList = $("<ul>");
 
     //attempt at loop to pull and display more than one side effect of the drug in question
     for (
