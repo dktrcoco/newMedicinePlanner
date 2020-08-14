@@ -9,12 +9,32 @@ var meds = JSON.parse(localStorage.getItem("meds")) || [];
 var medInput = $("#medInput").val(); //defines the input text as medInput value
 
 //script to allow enter key also function as clicking submit button
-medInputEl.addEventListener("keyup", function(event) {
+medInputEl.addEventListener("keyup", function (event) {
   if (event.keyCode === 13) {
-   event.preventDefault();
-   document.getElementById("submitMeds").click();
+    event.preventDefault();
+    document.getElementById("submitMeds").click();
   }
 });
+
+//event listener that will activate when page loads
+window.addEventListener("load", function () {
+
+  //event listener that waits for checkbox to be clicked
+  agreeWithDisclaimer.addEventListener("click", function () {
+
+    //if checkbox is checked, change visibility of submit button to visible
+    if (agreeWithDisclaimer.checked) {
+      submitMeds.style.visibility = "visible";
+      medInputEl.style.visibility = "visible";
+    }
+
+    //otherwise, visibility remains hidden
+    else {
+      submitMeds.style.visibility = "hidden";
+      medInputEl.style.visibility = "hidden";
+    }
+  }, false)
+})
 
 function saveMeds() {
   var medInput = $("#medInput").val(); //defines the input text as var value
