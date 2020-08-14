@@ -19,6 +19,8 @@ medInputEl.addEventListener("keyup", function (event) {
 //event listener that will activate when page loads
 window.addEventListener("load", function () {
 
+  disclaimer();
+
   //event listener that waits for checkbox to be clicked
   agreeWithDisclaimer.addEventListener("click", function () {
 
@@ -35,6 +37,10 @@ window.addEventListener("load", function () {
     }
   }, false)
 })
+
+function disclaimer() {
+  confirm("Do not rely on this application to make decisions regarding medical care. Always speak to your health provider about the risks and benefits of FDA-regulated products.")
+}
 
 function saveMeds() {
   var medInput = $("#medInput").val(); //defines the input text as var value
