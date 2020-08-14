@@ -1,7 +1,20 @@
+//DOM elements
+
+//tying in id for input field
+var medInputEl = document.getElementById("medInput");
+
 $("#currentDay").text(moment().format("dddd MMMM Do"));
 
 var meds = JSON.parse(localStorage.getItem("meds")) || [];
 var medInput = $("#medInput").val(); //defines the input text as medInput value
+
+//script to allow enter key also function as clicking submit button
+medInputEl.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("submitMeds").click();
+  }
+});
 
 function saveMeds() {
   var medInput = $("#medInput").val(); //defines the input text as var value
