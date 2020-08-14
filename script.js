@@ -5,6 +5,7 @@ var medInputEl = document.getElementById("medInput");
 
 $("#currentDay").text(moment().format("dddd MMMM Do"));
 
+//line that pulls the meds from local storage
 var meds = JSON.parse(localStorage.getItem("meds")) || [];
 var medInput = $("#medInput").val(); //defines the input text as medInput value
 
@@ -43,12 +44,15 @@ function disclaimer() {
   confirm("Do not rely on this application to make decisions regarding medical care. Always speak to your health provider about the risks and benefits of FDA-regulated products.")
 }
 
+document.getElementById("medDisplay").innterHTML = localStorage.getItem("meds");
+
 function saveMeds() {
   var medInput = $("#medInput").val(); //defines the input text as var value
-  var key = $("#medInput").attr("id"); //defines the id as var key
-  if (meds.indexOf(value) === -1) {
-    meds.push(value);
+  // var key = $("#medInput").attr("id"); //defines the id as var key
+  if (meds.indexOf(medInput) === -1) {
+    meds.push(medInput);
     localStorage.setItem("meds", JSON.stringify(meds));
+    
   }
   // renderButtons(meds);
 }
@@ -60,6 +64,7 @@ console.log(a.diff(b, "days"));
 
 //medication button
 function renderData() {
+  saveMeds();
   var drug = $("#medInput").val();
   if (!drug) {
     return;
