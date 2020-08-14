@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,77 +10,46 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
- 
+
 <body>
     <main>
         <div>
             <h1>Medicine Reminder</h1>
         </div>
- 
-        <div>
+
+        <div class="container1">
             <div class="today">
-                <h4>Today</h4>
-                <h4 id="currentDay" class="lead">Today</h4>
-                <!-- will have calander date -->
+                <h2>Today</h2>
+                <h2 id="currentDay" class="lead">Today</h2>
+                <!-- will have calendar date -->
             </div>
+        </div>
+
+        <div class="container2">
             <div>
                 <input id="medInput" class="medinput" type="text" placeholder="Enter medication here..." />
             </div>
             <div>
                 <button id="submitMeds" class="button" type="button">Submit</button>
             </div>
-            <br>
-            <div>
-                <p>Select day</p>
-            </div>
-            <div>
-                <button class="pure-button">
-                    <i class="fa fa-cog"></i>Monday
-                </button>
-                <a class="pure-button" href="#">
-                    <i class="fa fa-shopping-cart fa-lg"></i>Tuesday
-                </a>
-                <button class="pure-button">
-                    <i class="fa fa-cog"></i>Wednesday
-                </button>
-                <a class="pure-button" href="#">
-                    <i class="fa fa-shopping-cart fa-lg"></i>Thursday
-                </a>
-                <button class="pure-button">
-                    <i class="fa fa-cog"></i>Friday
-                </button>
-                <a class="pure-button" href="#">
-                    <i class="fa fa-shopping-cart fa-lg"></i>Saturday
-                </a>
-                <a class="pure-button" href="#">
-                    <i class="fa fa-shopping-cart fa-lg"></i>Sunday
-                </a>
- 
-            </div>
-            <br>
-            <div>
-                <input class="timeinput" type="text" placeholder="Enter time here..." />
-            </div>
-            <div>
-                <button class="button" type="button">Submit</button>
-            </div>
- 
         </div>
+        <br>
+
         <div class=med-display>
-            <div class="warning"></div>
-            <br>
             <div class="usage"></div>
             <br>
             <div class="reactions"></div>
+            <br>
+            <div class="warning"></div>
             <!-- make list from JS -->
         </div>
- 
- 
+
+
     </main>
- 
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="script.js"></script> 
+    <script src="script.js"></script>
 </body>
- 
+
 </html>

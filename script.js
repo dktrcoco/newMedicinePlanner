@@ -51,6 +51,8 @@ function renderData() {
     console.log(response.results[0].warnings[0]);
     console.log(response.results[0].indications_and_usage[0]);
     console.log(response.results[0]);
+    $(".med-display").show()
+    //^^line above has to be underneath console.log section to run optimally.
     //maybe i can correlate the label to the adverse events api
     //by using the ndc number
   });
@@ -69,7 +71,7 @@ function renderData() {
     //pulls the side effects reported on use of the drug in question
     $(".reactions").text(
       "When using this medication, some patients have experienced the following side effects: " +
-        secondResponse.results[0].patient.reaction[0].reactionmeddrapt
+      secondResponse.results[0].patient.reaction[0].reactionmeddrapt
     );
     var reactionsList = $("<ul>")
 
