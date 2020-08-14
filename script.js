@@ -44,7 +44,7 @@ function disclaimer() {
   confirm("Do not rely on this application to make decisions regarding medical care. Always speak to your health provider about the risks and benefits of FDA-regulated products.")
 }
 
-document.getElementById("medDisplay").innterHTML = localStorage.getItem("meds");
+// document.getElementById("medDisplay").innterHTML = localStorage.getItem("meds");
 
 function saveMeds() {
   var medInput = $("#medInput").val(); //defines the input text as var value
