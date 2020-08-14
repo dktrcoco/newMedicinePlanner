@@ -1,2 +1,3 @@
 # newMedicinePlanner
-Trying with a new repo
+
+Link: https://dktrcoco.github.io/newMedicinePlanner/
