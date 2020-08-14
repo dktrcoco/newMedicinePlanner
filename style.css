@@ -8,6 +8,11 @@ h1{
    border:2px solid black;
 }
 
+/* #medDisplay { //this is from testing how to display list of meds from localStorage
+  visibility: visible;
+  background-color: green;
+} */
+
 body {
   background-image: url("https://www.clipartkey.com/mpngs/m/17-174670_doctor-of-symbol-as-caduceus-medicine-logo-clipart.png");
   background-repeat: no-repeat;
