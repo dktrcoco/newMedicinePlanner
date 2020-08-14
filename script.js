@@ -71,6 +71,7 @@ function renderData() {
       "When using this medication, some patients have experienced the following side effects: " +
         secondResponse.results[0].patient.reaction[0].reactionmeddrapt
     );
+    var reactionsList = $("<ul>")
 
     //attempt at loop to pull and display more than one side effect of the drug in question
     for (
