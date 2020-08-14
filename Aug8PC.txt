@@ -1,0 +1,21 @@
+Pseudocode
+
+We are currently able to properly iterate over the data for side effects.
+
+We need to capture that data somehow (in an array?) and then display in html.
+
+We need to link the submit button so the drug typed into the input is inserted into the url to pull the appropriate data.
+
+We need to make some improvments for styling to make it look more polished
+
+We have a functional date via maria and moment.js.
+
+*We need to attach a counter to subtract one pill every 24 hours in order to create a low pill.
+
+*We make the assumption that there is 1 pill per day, so the countdown is effectively doing down by one count per day.
+
+*We can display all of the inputted medications
+
+*we can make each med a button which will then display the appropriate warning/usage/side effects (like in the weather hw)
+
+*we need to make a clear button for when user runs out of an inputted med

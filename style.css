@@ -1,0 +1,51 @@
+h1{
+    font-size: 40px;
+    font-weight: bolder;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color:red;
+    background-color:lightgray;
+    text-align: center;
+ }
+  
+<<<<<<< HEAD
+ .today {
+=======
+ /* .today {
+>>>>>>> e583121a2fab0841fab4db3eefafc038ff1d07db
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: monospace;
+<<<<<<< HEAD
+    background-color: lightgray;
+=======
+    background-color: lightgray; */
+>>>>>>> e583121a2fab0841fab4db3eefafc038ff1d07db
+ }
+  
+ .medinput {
+    width: 250px;
+    height: 40px;
+    border-radius: 10px;
+    /* margin-left: 35%; */
+    font-size: 20px;
+ }
+  
+ .button {
+    width: 255px;
+    height: 40px;
+    border-radius: 10px;
+    /* margin-left: 35%; */
+    font-size: 20px;
+    transition-duration: 0.4s;
+ }
+  .button:hover {
+    background-color: rgb(14, 149, 252);
+    color: white;
+ }
+  
+ .container {
+    border-radius: 10px;
+    border-color: rgb(99, 92, 82);
+ }
+ 
