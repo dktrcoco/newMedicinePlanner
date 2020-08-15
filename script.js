@@ -25,10 +25,11 @@ window.addEventListener("load", function () {
   agreeWithDisclaimer.addEventListener(
     "click",
     function () {
-      //if checkbox is checked, change visibility of submit button to visible
+      //if checkbox is checked, change visibility of submit button and input field to visible
       if (agreeWithDisclaimer.checked) {
         submitMeds.style.visibility = "visible";
         medInputEl.style.visibility = "visible";
+        document.getElementById("agreeWithDisclaimer").disabled = true;
       }
 
       //otherwise, visibility remains hidden
@@ -174,7 +175,7 @@ function renderData() {
     //pulls the side effects reported on use of the drug in question
     $(".reactions").text(
       "When using this medication, some patients have experienced the following side effects: " +
-        secondResponse.results[0].patient.reaction[0].reactionmeddrapt
+      secondResponse.results[0].patient.reaction[0].reactionmeddrapt
     );
     var reactionsList = $("<ul>");
 
@@ -192,8 +193,6 @@ function renderData() {
     }
 
     $(".reactions").html(reactionsList);
-    //maybe i can correlate the label to the adverse events api
-    //by using the ndc number
   });
 }
 
