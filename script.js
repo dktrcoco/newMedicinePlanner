@@ -51,6 +51,8 @@ function disclaimer() {
 //when pressed
 //add a delete button to each medication
 
+renderButtons();
+
 function saveMeds() {
   var medInput = $("#medInput").val(); //defines the input text as var value
   // var key = $("#medInput").attr("id"); //defines the id as var key
@@ -59,18 +61,46 @@ function saveMeds() {
     localStorage.setItem("meds", JSON.stringify(meds));
   }
   //$("#medDisplay").html(localStorage.getItem("meds"));
+
   renderButtons();
 }
 
 function renderButtons() {
-  const buttonWrapper = $("<ul/>");
+  const buttonWrapper = $("<ul style='list-style: none;'/>");
+  // buttonWrapper.setAttribute("list-style-type", "none");
   const medLists = meds.map((x) => {
     return (
-      "<li><button class='getMedicine' id='" + x + "'>" + x + "</button></li>"
+      "<li><div class='divDelete'><button class='getMedicine' id='" +
+      x +
+      "'>" +
+      x +
+      "</button><button class='delete' >" +
+      "delete" +
+      "</button></div></li>"
     );
   });
   buttonWrapper.append(medLists);
   $("#medDisplay").html(buttonWrapper);
+}
+
+function getDeleteClick(event) {
+  if (!event) {
+    return;
+  }
+  const button = event.target;
+  console.log($(button));
+  var divDelete = $(button).parent().parent();
+  console.log(divDelete);
+  var medID = divDelete.find(".getMedicine").attr("id");
+  divDelete.remove();
+  var currentMeds = JSON.parse(localStorage.getItem("meds"));
+  console.log(currentMeds);
+  const index = currentMeds.indexOf(medID);
+  if (index > -1) {
+    currentMeds.splice(index, 1);
+  }
+  console.log(currentMeds);
+  localStorage.setItem("meds", JSON.stringify(currentMeds));
 }
 
 function getMedicineClick(event) {
@@ -173,4 +203,5 @@ var sideEffects = [];
 $(document).ready(function () {
   $(document).on("click", "#submitMeds", () => renderData());
   $(document).on("click", ".getMedicine", (e) => getMedicineClick(e));
+  $(document).on("click", ".delete", (e) => getDeleteClick(e));
 });
