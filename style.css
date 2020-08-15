@@ -1,11 +1,14 @@
-h1{
+header {
    font-size: 40px;
    font-weight: bolder;
    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-   color:red;
-   background-color:lightgray;
+   color:cornflowerblue;
+   /*background-color:lightgray;*/
    text-align: center;
-   border:2px solid black;
+   margin: 0 auto;
+   width: 100%;
+   padding: 5px;
+   /*border:2px solid black;*/
 }
 
 /* #medDisplay { //this is from testing how to display list of meds from localStorage
@@ -19,7 +22,7 @@ body {
   background-position: center;
   background-size: contain;
   background-attachment: fixed;
-  background-color: lightgray;
+  /*background-color: lightgray;*/
 }
 
 /*.today {
@@ -37,6 +40,7 @@ body {
    /* margin-left: 35%; */
    font-size: 20px;
    visibility: hidden;
+   border-radius: 25px;
 }
 
 /* #medInput {
@@ -64,7 +68,12 @@ body {
   padding: 10px;
   height: fit-content;
   width: fit-content;
-  background-color: red;
+  background-color: cornflowerblue;
+  border-radius: 25px;
+  font-weight: bolder;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  border-radius: 25px;
+  
 }
 
 .container2 {
@@ -73,17 +82,19 @@ body {
   padding: 10px;
   height: fit-content;
   width: fit-content;
-  background-color: red;
+  background-color: cornflowerblue;
+  border-radius: 25px;
 }
 
 .med-display {
   margin: 20px;
   border: 2px solid black;
-  background-color: red;
+  background-color: cornflowerblue;
   display: none;
   padding: 5px;
   height: fit-content;
   width: fit-content;
+  border-radius: 25px;
 }
 
 .usage {
@@ -92,6 +103,7 @@ body {
   background-color: white;
   padding: 5px;
   width: 500px;
+  border-radius: 25px;
 }
 
 .reactions {
@@ -100,6 +112,7 @@ body {
   background-color: white;
   padding: 5px;
   width: 500px;
+  border-radius: 25px;
 }
 
 .warning {
@@ -108,4 +121,5 @@ body {
   background-color: white;
   padding: 5px;
   width: 500px;
+  border-radius: 25px;
 }
