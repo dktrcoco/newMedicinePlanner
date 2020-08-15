@@ -7,52 +7,55 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 
-<body>
-    <main>
-        <div>
-            <h1>Medicine Reminder</h1>
-        </div>
-        <div class="container1">
-            <div class="today">
-                <h2>Today</h2>
-                <h2 id="currentDay" class="lead">Today</h2>
-                <!-- will have calendar date -->
-            </div>
-        </div>
-        
-        <div class="container2">
-            <div>
-                <input id="medInput" class="medinput" type="text" placeholder="Enter medication here..." />
-            </div>
-            <div>
-                <input type="checkbox" id="agreeWithDisclaimer">I agree with the DISCLAIMER.</input>
-            </div>
-            <div>
-                <button id="submitMeds" class="button" type="button">Submit</button>
-            </div>
-            <div id="medDisplay"></div>
-        </div>
-        <br>
+<header>Medicine Reminder</header>
 
-        <div class=med-display>
-            <div class="usage"></div>
+<div class="hero-image">
+
+    <body>
+        <main>
+            <div class="container1">
+                <div class="today">
+                    <h2 id="currentDay" class="lead">Today</h2>
+                    <!-- will have calendar date -->
+                </div>
+            </div>
+
+            <div class="container2">
+                <div>
+                    <input id="medInput" class="medinput" type="text" placeholder="Enter medication here..." />
+                </div>
+                <div>
+                    <input type="checkbox" id="agreeWithDisclaimer">I agree with the DISCLAIMER.</input>
+                </div>
+                <div>
+                    <button id="submitMeds" class="button" type="button">Submit</button>
+                </div>
+                <div id="medDisplay"></div>
+            </div>
             <br>
-            <div class="reactions"></div>
-            <br>
-            <div class="warning"></div>
-            <!-- make list from JS -->
-        </div>
+
+            <div class=med-display>
+                <div class="usage"></div>
+                <br>
+                <div class="reactions"></div>
+                <br>
+                <div class="warning"></div>
+                <!-- make list from JS -->
+            </div>
 
 
-    </main>
+        </main>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="script.js"></script>
-</body>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</div>
 
 </html>
