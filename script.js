@@ -19,32 +19,37 @@ medInputEl.addEventListener("keyup", function (event) {
 
 //event listener that will activate when page loads
 window.addEventListener("load", function () {
-
   disclaimer();
 
   //event listener that waits for checkbox to be clicked
-  agreeWithDisclaimer.addEventListener("click", function () {
+  agreeWithDisclaimer.addEventListener(
+    "click",
+    function () {
+      //if checkbox is checked, change visibility of submit button to visible
+      if (agreeWithDisclaimer.checked) {
+        submitMeds.style.visibility = "visible";
+        medInputEl.style.visibility = "visible";
+      }
 
-    //if checkbox is checked, change visibility of submit button to visible
-    if (agreeWithDisclaimer.checked) {
-      submitMeds.style.visibility = "visible";
-      medInputEl.style.visibility = "visible";
-    }
-
-    //otherwise, visibility remains hidden
-    else {
-      submitMeds.style.visibility = "hidden";
-      medInputEl.style.visibility = "hidden";
-    }
-  }, false)
-})
+      //otherwise, visibility remains hidden
+      else {
+        submitMeds.style.visibility = "hidden";
+        medInputEl.style.visibility = "hidden";
+      }
+    },
+    false
+  );
+});
 
 //confirm for user to see displayed disclaimer
 function disclaimer() {
-  confirm("Do not rely on this application to make decisions regarding medical care. Always speak to your health provider about the risks and benefits of FDA-regulated products.")
+  confirm(
+    "Do not rely on this application to make decisions regarding medical care. Always speak to your health provider about the risks and benefits of FDA-regulated products."
+  );
 }
-
-// document.getElementById("medDisplay").innterHTML = localStorage.getItem("meds");
+//get the display to function with a button fuction for each medication that changed the info
+//when pressed
+//add a delete button to each medication
 
 function saveMeds() {
   var medInput = $("#medInput").val(); //defines the input text as var value
@@ -52,9 +57,31 @@ function saveMeds() {
   if (meds.indexOf(medInput) === -1) {
     meds.push(medInput);
     localStorage.setItem("meds", JSON.stringify(meds));
-    
   }
-  // renderButtons(meds);
+  //$("#medDisplay").html(localStorage.getItem("meds"));
+  renderButtons();
+}
+
+function renderButtons() {
+  const buttonWrapper = $("<ul/>");
+  const medLists = meds.map((x) => {
+    return (
+      "<li><button class='getMedicine' id='" + x + "'>" + x + "</button></li>"
+    );
+  });
+  buttonWrapper.append(medLists);
+  $("#medDisplay").html(buttonWrapper);
+}
+
+function getMedicineClick(event) {
+  if (!event) {
+    return;
+  }
+
+  const button = event.target;
+  const medicineName = $(button).attr("id");
+  $("#medInput").val(medicineName);
+  $("#submitMeds").trigger("click");
 }
 
 //month count down
@@ -64,12 +91,12 @@ console.log(a.diff(b, "days"));
 
 //medication button
 function renderData() {
-  saveMeds();
   var drug = $("#medInput").val();
   if (!drug) {
     return;
   }
-  
+
+  saveMeds();
   // This is our API key for openFDA
   var APIKey = "9T91KX0fND6FQdNSBejeTZYWGSOMmilhOIt9NBfz";
 
@@ -85,13 +112,19 @@ function renderData() {
     url: labelQueryURL,
     method: "GET",
   }).then(function (response) {
+    $(".med-display").show();
+    const warnings =
+      response.results[0].warnings && response.results[0].warnings[0];
+    const warnings2 =
+      response.results[0].warnings_and_cautions &&
+      response.results[0].warnings_and_cautions[0];
+    const visibleWarnings = warnings || warnings2;
+
     //pulls the warning of the drug in question and populates the html
-    $(".warning").text("Warning: " + response.results[0].warnings[0]);
+    $(".warning").text("Warning: " + visibleWarnings);
 
     //pulls the usage of the drug in question and populates the html
     $(".usage").text("Usage: " + response.results[0].indications_and_usage[0]);
-
-    $(".med-display").show()
     //^^line above has to be underneath console.log section to run optimally.
     //maybe i can correlate the label to the adverse events api
     //by using the ndc number
@@ -111,9 +144,9 @@ function renderData() {
     //pulls the side effects reported on use of the drug in question
     $(".reactions").text(
       "When using this medication, some patients have experienced the following side effects: " +
-      secondResponse.results[0].patient.reaction[0].reactionmeddrapt
+        secondResponse.results[0].patient.reaction[0].reactionmeddrapt
     );
-    var reactionsList = $("<ul>")
+    var reactionsList = $("<ul>");
 
     //attempt at loop to pull and display more than one side effect of the drug in question
     for (
@@ -122,14 +155,13 @@ function renderData() {
       i++
     ) {
       $(reactionsList).append(
-
         $("<li>").text(
           secondResponse.results[0].patient.reaction[i].reactionmeddrapt
         )
       );
     }
 
-    $(".reactions").append(reactionsList);
+    $(".reactions").html(reactionsList);
     //maybe i can correlate the label to the adverse events api
     //by using the ndc number
   });
@@ -138,4 +170,7 @@ function renderData() {
 //array to be populated with the side effects pulled from the api
 var sideEffects = [];
 
-$("#submitMeds").on("click", renderData);
+$(document).ready(function () {
+  $(document).on("click", "#submitMeds", () => renderData());
+  $(document).on("click", ".getMedicine", (e) => getMedicineClick(e));
+});
