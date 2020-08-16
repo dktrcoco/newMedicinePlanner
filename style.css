@@ -86,6 +86,17 @@ body {
   border-radius: 25px;
 }
 
+.container3 {
+  position: absolute; top: 0; right: 0; text-align: justify;
+  border: 2px solid black;
+  margin: 20px;
+  padding: 10px;
+  height: fit-content;
+  width: 30%;
+  background-color: cornflowerblue;
+  border-radius: 25px;
+}
+
 .med-display {
   margin: 20px;
   border: 2px solid black;

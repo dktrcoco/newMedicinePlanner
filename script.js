@@ -1,8 +1,7 @@
-//DOM elements
-
 //tying in id for input field
 var medInputEl = document.getElementById("medInput");
 
+//uses moment.js to display the current date
 $("#currentDay").text(moment().format("dddd MMMM Do"));
 
 //line that pulls the meds from local storage
@@ -25,10 +24,13 @@ window.addEventListener("load", function () {
   agreeWithDisclaimer.addEventListener(
     "click",
     function () {
-      //if checkbox is checked, change visibility of submit button to visible
+      //if checkbox is checked, change visibility of submit button and input field to visible
       if (agreeWithDisclaimer.checked) {
         submitMeds.style.visibility = "visible";
         medInputEl.style.visibility = "visible";
+
+        //disables the checkbox so user cannot accidentally uncheck after checking
+        document.getElementById("agreeWithDisclaimer").disabled = true;
       }
 
       //otherwise, visibility remains hidden
@@ -47,15 +49,14 @@ function disclaimer() {
     "Do not rely on this application to make decisions regarding medical care. Always speak to your health provider about the risks and benefits of FDA-regulated products."
   );
 }
-//get the display to function with a button fuction for each medication that changed the info
-//when pressed
-//add a delete button to each medication
 
 renderButtons();
 
 function saveMeds() {
-  var medInput = $("#medInput").val(); //defines the input text as var value
-  // var key = $("#medInput").attr("id"); //defines the id as var key
+
+  //defines the input text as var medInput
+  var medInput = $("#medInput").val();
+
   if (meds.indexOf(medInput) === -1) {
     meds.push(medInput);
     localStorage.setItem("meds", JSON.stringify(meds));
@@ -66,17 +67,13 @@ function saveMeds() {
 }
 
 function renderButtons() {
+
+  //creates an unordered list with no bullets
   const buttonWrapper = $("<ul style='list-style: none;'/>");
   // buttonWrapper.setAttribute("list-style-type", "none");
   const medLists = meds.map((x) => {
     return (
-      "<li><div class='divDelete'><button class='getMedicine' id='" +
-      x +
-      "'>" +
-      x +
-      "</button><button class='delete' >" +
-      "delete" +
-      "</button></div></li>"
+      "<li><div class='divDelete'><button class='getMedicine' id='" + x + "'>" + x + "</button><button class='delete' >" + "delete" + "</button></div></li>"
     );
   });
   buttonWrapper.append(medLists);
@@ -127,17 +124,15 @@ function renderData() {
   }
 
   saveMeds();
-  // This is our API key for openFDA
+  //API key for openFDA
   var APIKey = "9T91KX0fND6FQdNSBejeTZYWGSOMmilhOIt9NBfz";
 
   //NOTE: This API is from the US FDA. This is from the same source as the second API used below.
   //This API contains distinctly different and unique data than the below API.
   //This API houses the use directions and warnings of the drug in question.
   //in 2018 the FDA cataloged over 1.8 million research studies to accumulate this data.
-  var labelQueryURL =
-    "https://api.fda.gov/drug/label.json?api_key=" + APIKey + "&search=" + drug;
+  var labelQueryURL = "https://api.fda.gov/drug/label.json?api_key=" + APIKey + "&search=" + drug;
 
-  // We then created an AJAX call
   $.ajax({
     url: labelQueryURL,
     method: "GET",
@@ -156,8 +151,6 @@ function renderData() {
     //pulls the usage of the drug in question and populates the html
     $(".usage").text("Usage: " + response.results[0].indications_and_usage[0]);
     //^^line above has to be underneath console.log section to run optimally.
-    //maybe i can correlate the label to the adverse events api
-    //by using the ndc number
   });
 
   //NOTE: This second API is from the same source as the first, the US FDA.
@@ -192,14 +185,13 @@ function renderData() {
     }
 
     $(".reactions").html(reactionsList);
-    //maybe i can correlate the label to the adverse events api
-    //by using the ndc number
   });
 }
 
 //array to be populated with the side effects pulled from the api
-var sideEffects = [];
+// var sideEffects = [];
 
+//Event Listeners
 $(document).ready(function () {
   $(document).on("click", "#submitMeds", () => renderData());
   $(document).on("click", ".getMedicine", (e) => getMedicineClick(e));
