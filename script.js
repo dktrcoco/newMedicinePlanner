@@ -174,7 +174,7 @@ function renderData() {
     //pulls the side effects reported on use of the drug in question
     $(".reactions").text(
       "When using this medication, some patients have experienced the following side effects: " +
-        secondResponse.results[0].patient.reaction[0].reactionmeddrapt
+      secondResponse.results[0].patient.reaction[0].reactionmeddrapt
     );
     var reactionsList = $("<ul>");
 
@@ -203,5 +203,5 @@ var sideEffects = [];
 $(document).ready(function () {
   $(document).on("click", "#submitMeds", () => renderData());
   $(document).on("click", ".getMedicine", (e) => getMedicineClick(e));
-  $(document).on("click", ".delete", (e) => getDeleteClick(e));
+  $(document).on("click", ".x", (e) => getDeleteClick(e));
 });
