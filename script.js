@@ -148,6 +148,24 @@ function pillCounter() {
   }, 24 * 60 * 60 * 1000);
 }
 
+//function that allows differnet fields to collapse upon clicking their buttons
+function createCollapse(title, content) {
+  var id = title.split(" ").join("-")
+  //Syntax which allows the function to run
+  return `
+  <p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#${id}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    ${title}
+  </a>
+  </p>
+  <div class="collapse" id="${id}">
+  <div class="card card-body content">
+    ${content}
+  </div>
+  </div>
+  `
+}
+
 function renderData() {
   var drug = $("#medInput").val();
 
@@ -191,10 +209,13 @@ function renderData() {
     const visibleWarnings = warnings || warnings2;
 
     //pulls the warning of the drug in question and populates the html
-    $(".warning").text("Warning: " + visibleWarnings);
+    var warningsCollapse = createCollapse("Warning", "Warning: " + visibleWarnings);
+    //allows the element to toggle open and closed
+    $(".warning").html(warningsCollapse);
 
     //pulls the usage of the drug in question and populates the html
-    $(".usage").text("Usage: " + response.results[0].indications_and_usage[0]);
+    var usageCollapse = createCollapse("Usage", "Usage: " + response.results[0].indications_and_usage[0]);
+    $(".usage").html(usageCollapse)
     //^^line above has to be underneath console.log section to run optimally.
   });
 
@@ -209,12 +230,6 @@ function renderData() {
     url: eventQueryURL,
     method: "GET",
   }).then(function (secondResponse) {
-
-    //pulls the side effects reported on use of the drug in question
-    $(".reactions").text(
-      "When using this medication, some patients have experienced the following side effects: " +
-      secondResponse.results[0].patient.reaction[0].reactionmeddrapt
-    );
 
     //dynamically creates an unordered list
     var reactionsList = $("<ul>");
@@ -234,8 +249,13 @@ function renderData() {
       );
     }
 
+    //pulls the side effects reported on use of the drug in question
+    console.log(reactionsList.prop('outerHTML'))
+    var reactionsCollapse = createCollapse("Side Effects", "When using this medication, some patients have experienced the following side effects: " +
+    reactionsList.prop('outerHTML'));
+
     //displays the list of side effects in element with class="reactions"
-    $(".reactions").html(reactionsList);
+    $(".reactions").html(reactionsCollapse);
   });
 }
 

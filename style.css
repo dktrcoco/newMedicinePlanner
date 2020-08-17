@@ -197,6 +197,19 @@ body {
   border-radius: 25px;
 }
 
+.content {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+@media screen and (max-width: 711px) {
+
+  .container3{
+  position: static;
+  margin: 0 20px;
+  width: 100%;
+  }
+}
 
 @media screen and (max-width: 660px) {
 
