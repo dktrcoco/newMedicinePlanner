@@ -57,16 +57,16 @@ function saveMeds() {
   // var key = $("#medInput").attr("id"); //defines the id as var key
   var medObj = {
     name: medInput,
-    count: 30
-  }
+    count: 30,
+  };
   if (meds.indexOf(medInput) === -1) {
-    var found = meds.findIndex(el => {
-      return el.name.toLowerCase() === medInput.toLowerCase()
-    })
-    console.log(meds)
-    console.log(found)
+    var found = meds.findIndex((el) => {
+      return el.name.toLowerCase() === medInput.toLowerCase();
+    });
+    console.log(meds);
+    console.log(found);
     if (found < 0) {
-      console.log("not found")
+      console.log("not found");
       meds.push(medObj);
       localStorage.setItem("meds", JSON.stringify(meds));
     }
@@ -77,7 +77,6 @@ function saveMeds() {
 }
 
 function renderButtons() {
-
   //creates an unordered list with no bullets
   const buttonWrapper = $("<ul style='list-style: none;'/>");
 
@@ -103,16 +102,20 @@ function renderButtons() {
   $("#medDisplay").html(buttonWrapper);
 }
 
+//makes the button which appears next to the medication
 function getDeleteClick(event) {
   if (!event) {
     return;
   }
   const button = event.target;
   console.log($(button));
+  //removes the delete button
   var divDelete = $(button).parent().parent();
   console.log(divDelete);
+  //removes the med button
   var medID = divDelete.find(".getMedicine").attr("id");
   divDelete.remove();
+  //removes med from local storage
   var currentMeds = JSON.parse(localStorage.getItem("meds"));
   console.log(currentMeds);
   const index = currentMeds.findIndex((el) => el.name === medID);
@@ -123,6 +126,7 @@ function getDeleteClick(event) {
   localStorage.setItem("meds", JSON.stringify(currentMeds));
 }
 
+//grabs input when submit button is clicked
 function getMedicineClick(event) {
   if (!event) {
     return;
@@ -139,12 +143,11 @@ var counter;
 
 //function that sets the interval of decrementing pill count to 24 hours
 function pillCounter() {
-
   var dailyDose = setInterval(function () {
-    meds.forEach(el => {
-      el.count -= 1
-    })
-    localStorage.setItem("meds", JSON.stringify(meds))
+    meds.forEach((el) => {
+      el.count -= 1;
+    });
+    localStorage.setItem("meds", JSON.stringify(meds));
   }, 24 * 60 * 60 * 1000);
 }
 
@@ -169,7 +172,8 @@ function renderData() {
   //This API contains distinctly different and unique data than the below API.
   //This API houses the use directions and warnings of the drug in question.
   //in 2018 the FDA cataloged over 1.8 million research studies to accumulate this data.
-  var labelQueryURL = "https://api.fda.gov/drug/label.json?api_key=" + APIKey + "&search=" + drug;
+  var labelQueryURL =
+    "https://api.fda.gov/drug/label.json?api_key=" + APIKey + "&search=" + drug;
 
   //AJAX call for the label API that contains usage and warning info
   $.ajax({
@@ -177,7 +181,7 @@ function renderData() {
     method: "GET",
   }).then(function (response) {
     $(".med-display").show();
-    
+
     //sets const warnings to content of .warnings
     const warnings =
       response.results[0].warnings && response.results[0].warnings[0];
@@ -202,18 +206,18 @@ function renderData() {
   //This API contains distinctly different and unique data than the above API.
   //This API houses the side effects reported on the use of the drug in question.
   //In 2018 the FDA cataloged over 1.8 million research studies to accumulate this data.
-  var eventQueryURL = "https://api.fda.gov/drug/event.json?api_key=" + APIKey + "&search=" + drug;
+  var eventQueryURL =
+    "https://api.fda.gov/drug/event.json?api_key=" + APIKey + "&search=" + drug;
 
   //AJAX call for the event API that contains side effect info
   $.ajax({
     url: eventQueryURL,
     method: "GET",
   }).then(function (secondResponse) {
-
     //pulls the side effects reported on use of the drug in question
     $(".reactions").text(
       "When using this medication, some patients have experienced the following side effects: " +
-      secondResponse.results[0].patient.reaction[0].reactionmeddrapt
+        secondResponse.results[0].patient.reaction[0].reactionmeddrapt
     );
 
     //dynamically creates an unordered list
@@ -225,7 +229,6 @@ function renderData() {
       i < secondResponse.results[0].patient.reaction.length;
       i++
     ) {
-      
       //appends the unordered list created above with next side effect
       $(reactionsList).append(
         $("<li>").text(
@@ -243,7 +246,6 @@ function renderData() {
 // var sideEffects = [];
 
 $(document).ready(function () {
-  
   //Event Listener that calls renderData when Submit button is clicked
   $(document).on("click", "#submitMeds", () => renderData());
 
