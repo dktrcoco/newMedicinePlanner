@@ -87,12 +87,15 @@ body {
 }
 
 .container3 {
-  position: absolute; top: 0; right: 0; text-align: justify;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: justify;
   border: 2px solid black;
   margin: 20px;
   padding: 10px;
   height: fit-content;
-  width: 30%;
+  width: 20%;
   background-color: cornflowerblue;
   border-radius: 25px;
 }
@@ -133,4 +136,12 @@ body {
   padding: 5px;
   width: 500px;
   border-radius: 25px;
+}
+
+
+@media screen and (max-width: 660px) {
+
+  .container3{
+    top: 70px;
+  }
 }
