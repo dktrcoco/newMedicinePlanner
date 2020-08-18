@@ -54,30 +54,27 @@ renderButtons();
 
 function saveMeds() {
   var medInput = $("#medInput").val(); //defines the input text as var value
-  // var key = $("#medInput").attr("id"); //defines the id as var key
   var medObj = {
     name: medInput,
-    count: 30
-  }
+    count: 30,
+  };
   if (meds.indexOf(medInput) === -1) {
-    var found = meds.findIndex(el => {
-      return el.name.toLowerCase() === medInput.toLowerCase()
-    })
-    console.log(meds)
-    console.log(found)
+    var found = meds.findIndex((el) => {
+      return el.name.toLowerCase() === medInput.toLowerCase();
+    });
+    console.log(meds);
+    console.log(found);
     if (found < 0) {
-      console.log("not found")
+      console.log("not found");
       meds.push(medObj);
       localStorage.setItem("meds", JSON.stringify(meds));
     }
   }
-  //$("#medDisplay").html(localStorage.getItem("meds"));
 
   renderButtons();
 }
 
 function renderButtons() {
-
   //creates an unordered list with no bullets
   const buttonWrapper = $("<ul style='list-style: none;'/>");
 
@@ -103,6 +100,7 @@ function renderButtons() {
   $("#medDisplay").html(buttonWrapper);
 }
 
+//creates the delete button next to the medication
 function getDeleteClick(event) {
   if (!event) {
     return;
@@ -111,10 +109,12 @@ function getDeleteClick(event) {
   console.log($(button));
   var divDelete = $(button).parent().parent();
   console.log(divDelete);
+  // deletes medication full div
   var medID = divDelete.find(".getMedicine").attr("id");
   divDelete.remove();
   var currentMeds = JSON.parse(localStorage.getItem("meds"));
   console.log(currentMeds);
+  //deletes from local storage
   const index = currentMeds.findIndex((el) => el.name === medID);
   if (index > -1) {
     currentMeds.splice(index, 1);
@@ -123,6 +123,7 @@ function getDeleteClick(event) {
   localStorage.setItem("meds", JSON.stringify(currentMeds));
 }
 
+//grabs input when submit button is clicked
 function getMedicineClick(event) {
   if (!event) {
     return;
@@ -139,18 +140,17 @@ var counter;
 
 //function that sets the interval of decrementing pill count to 24 hours
 function pillCounter() {
-
   var dailyDose = setInterval(function () {
-    meds.forEach(el => {
-      el.count -= 1
-    })
-    localStorage.setItem("meds", JSON.stringify(meds))
+    meds.forEach((el) => {
+      el.count -= 1;
+    });
+    localStorage.setItem("meds", JSON.stringify(meds));
   }, 24 * 60 * 60 * 1000);
 }
 
 //function that allows differnet fields to collapse upon clicking their buttons
 function createCollapse(title, content) {
-  var id = title.split(" ").join("-")
+  var id = title.split(" ").join("-");
   //Syntax which allows the function to run
   return `
   <p>
@@ -163,7 +163,7 @@ function createCollapse(title, content) {
     ${content}
   </div>
   </div>
-  `
+  `;
 }
 
 function renderData() {
@@ -187,7 +187,8 @@ function renderData() {
   //This API contains distinctly different and unique data than the below API.
   //This API houses the use directions and warnings of the drug in question.
   //in 2018 the FDA cataloged over 1.8 million research studies to accumulate this data.
-  var labelQueryURL = "https://api.fda.gov/drug/label.json?api_key=" + APIKey + "&search=" + drug;
+  var labelQueryURL =
+    "https://api.fda.gov/drug/label.json?api_key=" + APIKey + "&search=" + drug;
 
   //AJAX call for the label API that contains usage and warning info
   $.ajax({
@@ -195,7 +196,7 @@ function renderData() {
     method: "GET",
   }).then(function (response) {
     $(".med-display").show();
-    
+
     //sets const warnings to content of .warnings
     const warnings =
       response.results[0].warnings && response.results[0].warnings[0];
@@ -209,13 +210,19 @@ function renderData() {
     const visibleWarnings = warnings || warnings2;
 
     //pulls the warning of the drug in question and populates the html
-    var warningsCollapse = createCollapse("Warning", "Warning: " + visibleWarnings);
+    var warningsCollapse = createCollapse(
+      "Warning",
+      "Warning: " + visibleWarnings
+    );
     //allows the element to toggle open and closed
     $(".warning").html(warningsCollapse);
 
     //pulls the usage of the drug in question and populates the html
-    var usageCollapse = createCollapse("Usage", "Usage: " + response.results[0].indications_and_usage[0]);
-    $(".usage").html(usageCollapse)
+    var usageCollapse = createCollapse(
+      "Usage",
+      "Usage: " + response.results[0].indications_and_usage[0]
+    );
+    $(".usage").html(usageCollapse);
     //^^line above has to be underneath console.log section to run optimally.
   });
 
@@ -223,14 +230,14 @@ function renderData() {
   //This API contains distinctly different and unique data than the above API.
   //This API houses the side effects reported on the use of the drug in question.
   //In 2018 the FDA cataloged over 1.8 million research studies to accumulate this data.
-  var eventQueryURL = "https://api.fda.gov/drug/event.json?api_key=" + APIKey + "&search=" + drug;
+  var eventQueryURL =
+    "https://api.fda.gov/drug/event.json?api_key=" + APIKey + "&search=" + drug;
 
   //AJAX call for the event API that contains side effect info
   $.ajax({
     url: eventQueryURL,
     method: "GET",
   }).then(function (secondResponse) {
-
     //dynamically creates an unordered list
     var reactionsList = $("<ul>");
 
@@ -240,7 +247,6 @@ function renderData() {
       i < secondResponse.results[0].patient.reaction.length;
       i++
     ) {
-      
       //appends the unordered list created above with next side effect
       $(reactionsList).append(
         $("<li>").text(
@@ -250,9 +256,12 @@ function renderData() {
     }
 
     //pulls the side effects reported on use of the drug in question
-    console.log(reactionsList.prop('outerHTML'))
-    var reactionsCollapse = createCollapse("Side Effects", "When using this medication, some patients have experienced the following side effects: " +
-    reactionsList.prop('outerHTML'));
+    console.log(reactionsList.prop("outerHTML"));
+    var reactionsCollapse = createCollapse(
+      "Side Effects",
+      "When using this medication, some patients have experienced the following side effects: " +
+        reactionsList.prop("outerHTML")
+    );
 
     //displays the list of side effects in element with class="reactions"
     $(".reactions").html(reactionsCollapse);
@@ -263,7 +272,6 @@ function renderData() {
 // var sideEffects = [];
 
 $(document).ready(function () {
-  
   //Event Listener that calls renderData when Submit button is clicked
   $(document).on("click", "#submitMeds", () => renderData());
 
