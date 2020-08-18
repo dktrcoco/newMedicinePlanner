@@ -5,6 +5,7 @@ var medInputEl = document.getElementById("medInput");
 $("#currentDay").text(moment().format("dddd MMMM Do"));
 
 //line that pulls the meds from local storage
+//pulls from LS  if exists or create an empty array
 var meds = JSON.parse(localStorage.getItem("meds")) || [];
 var medInput = $("#medInput").val(); //defines the input text as medInput value
 
@@ -60,9 +61,12 @@ function saveMeds() {
     count: 30
   }
   if (meds.indexOf(medInput) === -1) {
+    //array method
+    //if it doesn't exist it returns -1
     var found = meds.findIndex(el => {
       return el.name.toLowerCase() === medInput.toLowerCase()
     })
+    //this was created to curb a med duplication effect that was occurring
     console.log(meds)
     console.log(found)
     if (found < 0) {
@@ -141,9 +145,11 @@ var counter;
 function pillCounter() {
 
   var dailyDose = setInterval(function () {
+    //loop over existing meds and decrement count every 24 hrs
     meds.forEach(el => {
       el.count -= 1
     })
+    //update LS with new count
     localStorage.setItem("meds", JSON.stringify(meds))
   }, 24 * 60 * 60 * 1000);
 }
@@ -195,7 +201,7 @@ function renderData() {
     method: "GET",
   }).then(function (response) {
     $(".med-display").show();
-    
+
     //sets const warnings to content of .warnings
     const warnings =
       response.results[0].warnings && response.results[0].warnings[0];
@@ -240,7 +246,7 @@ function renderData() {
       i < secondResponse.results[0].patient.reaction.length;
       i++
     ) {
-      
+
       //appends the unordered list created above with next side effect
       $(reactionsList).append(
         $("<li>").text(
@@ -252,7 +258,7 @@ function renderData() {
     //pulls the side effects reported on use of the drug in question
     console.log(reactionsList.prop('outerHTML'))
     var reactionsCollapse = createCollapse("Side Effects", "When using this medication, some patients have experienced the following side effects: " +
-    reactionsList.prop('outerHTML'));
+      reactionsList.prop('outerHTML'));
 
     //displays the list of side effects in element with class="reactions"
     $(".reactions").html(reactionsCollapse);
@@ -263,7 +269,7 @@ function renderData() {
 // var sideEffects = [];
 
 $(document).ready(function () {
-  
+
   //Event Listener that calls renderData when Submit button is clicked
   $(document).on("click", "#submitMeds", () => renderData());
 
