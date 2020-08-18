@@ -49,13 +49,15 @@ body {
  
 .button {
 	cursor: pointer;
-	position: relative;
-	padding: 2.5rem 7.5rem;
+  position: relative;
+  left: 5%;
+	padding: 1.5rem 3rem;
 	border-radius: 3.75rem;
-	line-height: 2.5rem;
+	line-height: 1.5rem;
 	font-size: 2rem;
   font-weight: 600;
   visibility: hidden;
+  margin: 4%;
 	
 	border: 1px solid #012880;
 	background-image: linear-gradient(-180deg, #FF89D6 0%, #C01F9E 100%);
