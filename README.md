@@ -95,3 +95,6 @@ Project 1 Restrospective:
 
 Matt Dudzik-
 In retrospect, this project was a wonderful learning experience. I personally could have used a bit more time on it but overall bouncing ideas off of the team and working with others to complete a group project helped me learn enormously better than just watching the classes and working on the in-class activities. Everyone in the team was a valuable asset and made it what it was, which was a fantastic first project experience. 
+
+Chris Kabana-
+This project was exhausting in a good way. The group had a rough start to the project, but we never faltered and overcame the difficulties we encountered. On a personal level, I've never been the most creative-minded person (I've always been a gate-keeper type person and not the Idea Monkey). I have learned it is especially important in this field to focus somewhat equally on both form and function. Overall, this was an excellent learning experience and I can't wait for the next one.
