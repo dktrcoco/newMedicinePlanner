@@ -89,3 +89,9 @@ WHEN I add a second medication
 THEN the med display on the calender will be color coded to each medicine added
 
 Authors: This project was developed as a group by Chris Kabana, Matt Dudzik, Maria Cruz, and Christian Vadevoulis. We all aquired help from our individual tutors, as well as the TA's in instructor for the bootcamp course. The style for the Submit button was originally designed by Mathias Adam and found on dribbble.com.
+
+
+Project 1 Restrospective:
+
+Matt Dudzik-
+In retrospect, this project was a wonderful learning experience. I personally could have used a bit more time on it but overall bouncing ideas off of the team and working with others to complete a group project helped me learn enormously better than just watching the classes and working on the in-class activities. Everyone in the team was a valuable asset and made it what it was, which was a fantastic first project experience. 
